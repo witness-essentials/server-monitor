@@ -1,0 +1,19 @@
+{
+  "RPC_NODES": [
+    "https://api.steemit.com",
+    "https://api.steemitstage.com",
+    "https://steemd.privex.io",
+    "https://gtg.steem.house:8090",
+    "https://rpc.buildteam.io",
+    "https://steemd.minnowsupportproject.org"
+  ],
+  "WITNESS": "",
+  "NODES": [
+    {
+      "IP": "",
+      "PORT": "",
+      "SIGNING_KEY": ""
+    }
+  ],
+  "INTERVAL": 1
+}

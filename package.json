@@ -1,0 +1,25 @@
+{
+  "name": "witness-essentials-server-monitor",
+  "version": "1.0.0",
+  "description": "Watching servers and updating JSON metadata.",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "therealwolf42",
+  "license": "MIT",
+  "dependencies": {
+    "@types/lodash": "^4.14.116",
+    "convict": "^4.4.0",
+    "dotenv": "^6.0.0",
+    "dsteem": "^0.10.1",
+    "dsteem-hf20": "^0.10.7",
+    "lodash": "^4.17.11",
+    "node-netcat": "^1.4.8",
+    "ping": "^0.2.2",
+    "steem-js-witness-fix": "^0.7.1",
+    "tcp-ping": "^0.1.1",
+    "witness-essentials-package": "^1.0.3"
+  }
+}
