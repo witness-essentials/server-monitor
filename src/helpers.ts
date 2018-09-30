@@ -99,7 +99,6 @@ export let is_node_alive = async (ip, port = 0) => {
       })
     } else {
       ping.sys.probe(String(ip), (b) => {
-        console.log(b)
         resolve(b)
       })
     }

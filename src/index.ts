@@ -10,6 +10,9 @@ export let config = require('../configs/config.js').get()
 
 let start = async () => {
   try {
+    console.log('\n' + '----------------------------' + '\n')
+    console.log('Starting Server Monitor')
+    console.log('\n' + '----------------------------' + '\n')
     while (true) {
       await main()
       await essentials.timeout(_g.config.INTERVAL * 60)
@@ -46,6 +49,7 @@ let main = async () => {
   if (!_.isEqual(new_witness_data.nodes, witness_data.nodes)) {
     metadata.witness = new_witness_data
     await _g.client.broadcast.updateAccount({ account: config.WITNESS, memo_key: account.memo_key, json_metadata: JSON.stringify(metadata) }, dsteem.PrivateKey.fromString(process.env.ACTIVE_KEY) )
+    essentials.log(`Updated data. ${new_witness_data.nodes}`)
   }
 }
 

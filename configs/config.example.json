@@ -10,9 +10,11 @@
   "WITNESS": "",
   "NODES": [
     {
-      "IP": "",
-      "PORT": "",
-      "SIGNING_KEY": ""
+      "ID": 1,
+      "IP": "12.34.56.78",
+      "PORT": 0,
+      "SIGNING_KEY": "STM5..",
+      "TYPE": "WITNESS"
     }
   ],
   "INTERVAL": 1
