@@ -46,9 +46,10 @@ let main = async () => {
   }
 
   new_witness_data.last_update_time = Date.now()
-  if (!_.isEqual(new_witness_data.nodes, witness_data.nodes)) {
+  let interval_update = (new_witness_data.last_update_time - witness_data.last_update_time) / (1000 * 60 * 60 * 24) >= 1 // Last update is older than 1 day
+  if (!_.isEqual(new_witness_data.nodes, witness_data.nodes) || interval_update) {
     metadata.witness = new_witness_data
-    await _g.client.broadcast.updateAccount({ account: config.WITNESS, memo_key: account.memo_key, json_metadata: JSON.stringify(metadata) }, dsteem.PrivateKey.fromString(process.env.ACTIVE_KEY) )
+    await _g.client.broadcast.updateAccount({ account: config.WITNESS, memo_key: account.memo_key, json_metadata: JSON.stringify(metadata) }, dsteem.PrivateKey.fromString(process.env.ACTIVE_KEY))
     essentials.log(`Updated data. ${new_witness_data.nodes}`)
   }
 }
