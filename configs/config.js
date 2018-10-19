@@ -37,6 +37,11 @@ let config = convict({
     format: Number,
     default: 5
   },
+  ENABLE_DELEGATIONS: {
+    doc: 'Enable delegation tracking',
+    format: Boolean,
+    default: false
+  },
   DELEGATIONS: {
     doc: 'Accounts that has been delegated to from a 3rd account',
     format: '*',
