@@ -102,14 +102,14 @@ export let is_node_alive = async (ip, port = 0) => {
     } else {
       ping.sys.probe(String(ip), (b) => {
         resolve(b)
-      })
+      }, { timeout: 15 }) // seconds
     }
   })
 }
 
 export async function get_delegations() {
   _g.delegations = []
-  
+
   // DIRECT DELEGATIONS
   let delegations = await _g.client.call('condenser_api', 'get_vesting_delegations', [_g.config.WITNESS, -1, 1000])
   delegations = delegations.filter(x => _g.config.DELEGATIONS_BLACKLIST.indexOf(x.delegatee) === -1)
@@ -127,7 +127,7 @@ export async function get_delegations() {
       let effective_vesting_shares = parseFloat(z.vesting_shares.replace(' VESTS', ''))
       let steempower = _g.properties.total_vesting_fund * (effective_vesting_shares / _g.properties.total_vesting_shares)
       for (let g_del of _g.delegations) {
-        if(g_del.delegatee === y.delegatee) {
+        if (g_del.delegatee === y.delegatee) {
           let i = _g.delegations.indexOf(g_del)
           _g.delegations[i].steempower += steempower
         }
@@ -135,5 +135,5 @@ export async function get_delegations() {
     }
   }
 
-  _g.delegations = _.orderBy(_g.delegations, ['steempower'],['desc'])
+  _g.delegations = _.orderBy(_g.delegations, ['steempower'], ['desc'])
 }
