@@ -115,7 +115,7 @@ export async function get_delegations() {
   delegations = delegations.filter(x => _g.config.DELEGATIONS_BLACKLIST.indexOf(x.delegatee) === -1)
   for (let x of delegations) {
     let effective_vesting_shares = parseFloat(x.vesting_shares.replace(' VESTS', ''))
-    let steempower = _g.properties.total_vesting_fund * (effective_vesting_shares / _g.properties.total_vesting_shares)
+    let steempower = parseFloat((_g.properties.total_vesting_fund * (effective_vesting_shares / _g.properties.total_vesting_shares)).toFixed(3))
     _g.delegations.push({ delegatee: x.delegatee, steempower })
   }
 
@@ -129,7 +129,7 @@ export async function get_delegations() {
       for (let g_del of _g.delegations) {
         if (g_del.delegatee === y.delegatee) {
           let i = _g.delegations.indexOf(g_del)
-          _g.delegations[i].steempower += steempower
+          _g.delegations[i].steempower = parseFloat((_g.delegations[i].steempower + steempower).toFixed(3))
         }
       }
     }
