@@ -36,6 +36,23 @@ let config = convict({
     doc: 'Interval in minutes',
     format: Number,
     default: 5
+  },
+  DELEGATIONS: {
+    doc: 'Accounts that has been delegated to from a 3rd account',
+    format: '*',
+    default: [
+      { 
+        "delegatee": "test",
+        "delegator": "test"
+      }
+    ]
+  },
+  DELEGATIONS_BLACKLIST: {
+    doc: 'Accounts that should be skipped',
+    format: '*',
+    default: [
+      "test"
+    ]
   }
 })
 

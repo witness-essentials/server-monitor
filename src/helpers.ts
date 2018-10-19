@@ -1,9 +1,11 @@
 import * as essentials from 'witness-essentials-package'
 import * as dsteem from 'dsteem'
+import * as _ from 'lodash'
+
 const _g = require('./_g')
 var ping = require('ping')
 var tcping = require('tcp-ping')
- 
+
 export interface Options {
   node?: string,
   retries?: number,
@@ -90,9 +92,9 @@ export let failover = async () => {
 
 export let is_node_alive = async (ip, port = 0) => {
   return new Promise((resolve, reject) => {
-    if(port > 0) {
+    if (port > 0) {
       tcping.probe(String(ip), port, (e, b) => {
-        if(e) {
+        if (e) {
           resolve(false)
         }
         resolve(b)
@@ -102,6 +104,36 @@ export let is_node_alive = async (ip, port = 0) => {
         resolve(b)
       })
     }
-    
   })
+}
+
+export async function get_delegations() {
+  _g.delegations = []
+  
+  // DIRECT DELEGATIONS
+  let delegations = await _g.client.call('condenser_api', 'get_vesting_delegations', [_g.config.WITNESS, -1, 1000])
+  delegations = delegations.filter(x => _g.config.DELEGATIONS_BLACKLIST.indexOf(x.delegatee) === -1)
+  for (let x of delegations) {
+    let effective_vesting_shares = parseFloat(x.vesting_shares.replace(' VESTS', ''))
+    let steempower = _g.properties.total_vesting_fund * (effective_vesting_shares / _g.properties.total_vesting_shares)
+    _g.delegations.push({ delegatee: x.delegatee, steempower })
+  }
+
+  // INDIRECT DELEGATIONS
+  for (let y of _g.config.DELEGATIONS) {
+    let delegations = await _g.client.call('condenser_api', 'get_vesting_delegations', [y.delegator, -1, 1000])
+    delegations = delegations.filter(del => del.delegatee === y.delegatee)
+    for (let z of delegations) {
+      let effective_vesting_shares = parseFloat(z.vesting_shares.replace(' VESTS', ''))
+      let steempower = _g.properties.total_vesting_fund * (effective_vesting_shares / _g.properties.total_vesting_shares)
+      for (let g_del of _g.delegations) {
+        if(g_del.delegatee === y.delegatee) {
+          let i = _g.delegations.indexOf(g_del)
+          _g.delegations[i].steempower += steempower
+        }
+      }
+    }
+  }
+
+  _g.delegations = _.orderBy(_g.delegations, ['steempower'],['desc'])
 }

@@ -17,5 +17,12 @@
       "TYPE": "WITNESS"
     }
   ],
-  "INTERVAL": 1
+  "INTERVAL": 1,
+  "ENABLE_DELEGATIONS": false,
+  "DELEGATIONS": [
+
+  ],
+  "DELEGATIONS_BLACKLIST": [
+
+  ]
 }

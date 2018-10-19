@@ -1,6 +1,6 @@
 {
   "name": "witness-essentials-server-monitor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Watching servers and updating JSON metadata.",
   "main": "dist/index.js",
   "scripts": {
