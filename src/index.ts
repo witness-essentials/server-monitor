@@ -15,12 +15,13 @@ let start = async () => {
     console.log('Starting Server Monitor')
     console.log(`Tracking Delegations: ${_g.config.ENABLE_DELEGATIONS ? 'ENABLED': 'DISABLED' }`)
     console.log('\n' + '----------------------------' + '\n')
+    run_upate_delegations()
     while (true) {
       await essentials.timeout(5)
       await main()
       await essentials.timeout(_g.config.INTERVAL * 60)
-      run_upate_delegations()
     }
+    
   } catch (error) {
     console.error('start', error)
     await essentials.timeout(5)
