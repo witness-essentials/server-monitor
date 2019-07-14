@@ -15,7 +15,7 @@
     "dotenv": "^6.0.0",
     "dsteem": "^0.10.1",
     "dsteem-hf20": "^0.10.7",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "node-netcat": "^1.4.8",
     "ping": "^0.2.2",
     "steem-js-witness-fix": "^0.7.1",
